@@ -37,6 +37,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
+    frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
     frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
     frameworks/native/data/etc/com.android.nfc_extras.xml:system/etc/permissions/com.android.nfc_extras.xml \
@@ -65,6 +66,10 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/system/etc/data/dsi_config.xml:system/etc/data/dsi_config.xml \
     $(COMMON_PATH)/rootdir/system/etc/data/netmgr_config.xml:system/etc/data/netmgr_config.xml \
     $(COMMON_PATH)/rootdir/system/etc/data/qmi_config.xml:system/etc/data/qmi_config.xml
+
+# Seccomp policy
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/seccomp_policy/mediacodec.policy:system/vendor/etc/seccomp_policy/mediacodec.policy
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -115,8 +120,13 @@ PRODUCT_PACKAGES += \
     p2p_supplicant.conf \
     hostapd \
     libwpa_client \
+    wificond \
     wpa_supplicant \
     wpa_supplicant.conf
+
+# Bluetooth
+PRODUCT_PACKAGES += \
+    libbt-vendor
 
 # CAMERA
 PRODUCT_PACKAGES += \
@@ -297,6 +307,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.camera.gyro.disable=1 \
     persist.camera.feature.cac=0 \
     persist.camera.ois.disable=0 \
+    persist.camera.eis.enable=0 \
     persist.camera.zsl.mode=1
 
 # Sensors debug
@@ -310,8 +321,4 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sys.sdcardfs=true
 
-# BT/FMRadio
-ifeq ($(filter rhine kanuti tone yoshino,$(SOMC_PLATFORM)),)
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.rfkilldisabled=1
-endif
+$(call inherit-product, device/sony/common/treble.mk)

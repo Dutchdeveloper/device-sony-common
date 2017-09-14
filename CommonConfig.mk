@@ -40,6 +40,7 @@ BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 
 # GFX
 USE_OPENGL_RENDERER := true
+BOARD_USES_ADRENO := true
 TARGET_USES_ION := true
 TARGET_USES_C2D_COMPOSITION := true
 
@@ -55,7 +56,6 @@ AUDIO_FEATURE_ENABLED_MULTI_VOICE_SESSIONS := true
 # Camera
 BOARD_QTI_CAMERA_32BIT_ONLY := true
 BOARD_QTI_CAMERA_V2 := true
-CAMERA_DAEMON_NOT_PRESENT := true
 
 # GPS definitions for Qualcomm solution
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := $(TARGET_BOARD_PLATFORM)
@@ -69,9 +69,6 @@ BOARD_HAL_STATIC_LIBRARIES += libhealthd.$(TARGET_DEVICE)
 
 # Include an expanded selection of fonts
 EXTENDED_FONT_FOOTPRINT := true
-
-# Set seccomp policy for media server
-BOARD_SECCOMP_POLICY += $(COMMON_PATH)/seccomp
 
 # Init configuration for init_sony
 include $(COMMON_PATH)/init/config.mk

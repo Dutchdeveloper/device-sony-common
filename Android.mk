@@ -95,8 +95,9 @@ media-hal := hardware/qcom/media/msm8996
 endif
 
 ifeq ($(TARGET_KERNEL_VERSION),4.4)
-QCOM_MEDIA_ROOT := hardware/qcom/media/msm8998
 display-hal := hardware/qcom/display/msm8998
+QCOM_MEDIA_ROOT := hardware/qcom/media/msm8998
+OMX_VIDEO_PATH := mm-video-v4l2
 media-hal := hardware/qcom/media/msm8998
 endif
 
@@ -111,9 +112,6 @@ ifneq ($(filter rhine,$(PRODUCT_PLATFORM)),)
 else
   include $(call all-makefiles-under,hardware/qcom/bt/msm8998)
 endif
-endif
-ifeq ($(BOARD_WLAN_DEVICE),qcwcn)
-  include $(call all-makefiles-under,hardware/qcom/wlan/qcwcn)
 endif
 
 endif
